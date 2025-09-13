@@ -1,6 +1,5 @@
-# NYC_Airbnb_Analysis
-Exploring NYC Airbnb data through neighborhood-level price analysis, reviews, and availability, with interactive maps and visualizations. Feature engineering and AI/ML prediction models are in progress.
 # NYC Airbnb Data Analysis 🏙️
+Exploring NYC Airbnb data through neighborhood-level price analysis, reviews, and availability, with interactive maps and visualizations. Feature engineering and AI/ML prediction models are in progress.
 
 This is a portfolio project where I analyze the **New York City Airbnb dataset** to explore patterns in pricing, locations, and other features.  
 The goal is to understand relationships in the dataset and eventually build a **predictive model** for Airbnb pricing.  
