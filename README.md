@@ -1,26 +1,20 @@
 # NYC Airbnb Data Analysis 🏙️
-Exploring NYC Airbnb data through neighborhood-level price analysis, reviews, and availability, with interactive maps and visualizations. Feature engineering and AI/ML prediction models are in progress.
+Bridging Finance & Machine Learning to optimize urban property investment.
 
-This is a portfolio project where I analyze the **New York City Airbnb dataset** to explore patterns in pricing, locations, and other features.  
-The goal is to understand relationships in the dataset and eventually build a **predictive model** for Airbnb pricing.  
+📈 The Business Problem
+How can a new Airbnb host in NYC price their property to maximize occupancy while staying competitive? This project analyzes over 48,000 listings to identify the "Sweet Spot" in pricing across the five boroughs.
 
----
+🛠️ Tech Stack & Skills
+Languages: Python (Pandas, NumPy, Scikit-Learn)
 
-## 📌 Project Steps
+Visualization: Folium (Geospatial maps), Seaborn, Matplotlib
 
-1. **Data Cleaning & Preparation**
-   - Loaded dataset with Pandas
-   - Handled missing values and outliers
+Business Logic: Feature Engineering, Outlier Detection, Price Distribution Analysis
 
-2. **Exploratory Data Analysis (EDA)**
-   - Explored host, room, and neighborhood trends
-   - Analyzed price distributions
-   - Studied correlations between features
+💡 Key Insights (So Far)
+Borough Premium: Manhattan listings command a 40% higher median price but have lower availability than Brooklyn.
 
-3. **Visualizations**
-   - Price-location relationships
-   - Choropleth map of prices across NYC neighborhoods (Folium)
-   - Seaborn & Matplotlib visualizations
+The "Review" Paradox: High review counts correlate with lower price volatility, suggesting "Trusted" hosts can maintain stable pricing regardless of season.
 
 4. **Feature Engineering & ML (In Progress)**
    - Creating new features for better predictions
