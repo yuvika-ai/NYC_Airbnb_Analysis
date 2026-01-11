@@ -30,11 +30,33 @@ The "Review" Paradox: High review counts correlate with lower price volatility, 
 
 ---
 
-## 🔮 Next Steps
 - Add feature engineering  
 - Train predictive ML model  
 - Evaluate performance (RMSE, MAE, R²)  
 
+# 🏙️ NYC Real Estate AI Valuation Suite
+**Bridging Commerce & Machine Learning for Urban Property Investment**
+
+## 🔗 Live Application
+[🚀 Click Here to Launch the Live AI Dashboard](https://nycairbnbanalysis-wrp4r2kdvucuex7jvmuu5d.streamlit.app/)
+
+## 📈 Project Overview
+How can a new Airbnb host in NYC price their property to maximize occupancy? This project moves beyond simple averages, using **Transformer-based NLP** and **Random Forest Regression** to predict nightly rates based on 48,000+ listings.
+
+## 🛠️ Tech Stack
+* **AI/ML:** Scikit-Learn (Random Forest), Joblib (Model Persistence)
+* **NLP:** HuggingFace Transformers (DistilBERT) for semantic "Luxury Score" extraction.
+* **Geospatial:** Folium (Choropleth Heatmapping), Streamlit Maps.
+* **Frontend:** Streamlit Cloud.
+* **Business Logic:** Outlier Detection, Market Segment Analysis.
+
+## 💡 Key Features
+* **Semantic Pricing:** Integrates a "Luxury Sentiment Score" from property descriptions using NLP.
+* **Interactive Valuation:** Real-time price prediction dashboard based on coordinates and property features.
+* **Geospatial Intelligence:** Neighborhood-level price distribution analysis using Folium.
+
+## 📂 Dataset
+[NYC Airbnb Open Data](https://www.kaggle.com/datasets/dgomonov/new-york-city-airbnb-open-data)
 ---
 
 ## 📂 Dataset
