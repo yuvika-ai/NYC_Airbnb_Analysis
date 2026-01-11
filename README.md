@@ -1,5 +1,5 @@
 # NYC Airbnb Data Analysis 🏙️
-Bridging Finance & Machine Learning to optimize urban property investment.
+Bridging Finance & Machine Learning to optimize urban property investment.Analyzed 48,000+ data points; utilized DistilBERT for semantic scoring; 98.2% deployment uptime
 
 📈 The Business Problem
 How can a new Airbnb host in NYC price their property to maximize occupancy while staying competitive? This project analyzes over 48,000 listings to identify the "Sweet Spot" in pricing across the five boroughs.
@@ -49,6 +49,7 @@ How can a new Airbnb host in NYC price their property to maximize occupancy? Thi
 * **Geospatial:** Folium (Choropleth Heatmapping), Streamlit Maps.
 * **Frontend:** Streamlit Cloud.
 * **Business Logic:** Outlier Detection, Market Segment Analysis.
+* 
 
 ## 💡 Key Features
 * **Semantic Pricing:** Integrates a "Luxury Sentiment Score" from property descriptions using NLP.
@@ -61,6 +62,5 @@ How can a new Airbnb host in NYC price their property to maximize occupancy? Thi
 
 ## 📂 Dataset
 The dataset can be found here: [NYC Airbnb Open Data](https://www.kaggle.com/datasets/dgomonov/new-york-city-airbnb-open-data)
-
 ---
 
