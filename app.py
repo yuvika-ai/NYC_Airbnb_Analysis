@@ -75,38 +75,53 @@ col1, col2 = st.columns([1, 1])
 with col1:
     st.subheader("🗺️ NYC Price Density Map")
 
+    # CLEAN DATA BEFORE MAPPING
+    # This ensures PyDeck doesn't get confused by "string" numbers
+    nyc_df['latitude'] = pd.to_numeric(nyc_df['latitude'], errors='coerce')
+    nyc_df['longitude'] = pd.to_numeric(nyc_df['longitude'], errors='coerce')
+    nyc_df = nyc_df.dropna(subset=['latitude', 'longitude'])
+
+    # THE HEATMAP (The Glow)
     heatmap_layer = pdk.Layer(
         "HeatmapLayer",
         data=nyc_df,
         get_position=["longitude", "latitude"],
         get_weight="price",
-        radiusPixels=80,      # Increased from 50 - makes the "glow" larger
-        intensity=20,         # Doubled from 10 - makes the colors much brighter
-        threshold=0.01,       # Lowered - shows even the smaller price clusters
+        radiusPixels=60,
+        intensity=25, 
+        threshold=0.01,
         colorRange=[
-            [254, 235, 226, 50],  # Very faint pink
-            [251, 180, 185, 120],
-            [247, 104, 161, 180],
+            [254, 235, 226, 100],
+            [251, 180, 185, 150],
+            [247, 104, 161, 200],
             [197, 27, 138, 220],
-            [122, 1, 119, 255]   # Strong purple center
+            [122, 1, 119, 255]
         ]
+    )
+
+    # THE DOTS (The backup so it's never "blank")
+    scatterplot_layer = pdk.Layer(
+        "ScatterplotLayer",
+        data=nyc_df,
+        get_position=["longitude", "latitude"],
+        get_radius=50,
+        get_fill_color=[255, 159, 229, 100], # Your pink
     )
 
     view_state = pdk.ViewState(
         latitude=40.7128,
         longitude=-74.0060,
         zoom=10,
+        pitch=40
     )
 
-    deck = pdk.Deck(
-        layers=[heatmap_layer],
+    st.pydeck_chart(pdk.Deck(
+        layers=[scatterplot_layer, heatmap_layer],
         initial_view_state=view_state,
-        # This style has better contrast for pink/purple gradients
-        map_style="mapbox://styles/mapbox/navigation-night-v1", 
-        tooltip={"text": "Concentration of High-Value Listings"}
-    )
+        map_style="mapbox://styles/mapbox/navigation-night-v1",
+    ))
 
-    st.pydeck_chart(deck, use_container_width=True)
+    
 
 # -----------------------------
 # PREDICTION
@@ -145,6 +160,7 @@ st.info(
     "📊 **Stack:** Scikit-learn, PyDeck Geospatial Visualization, "
     "Streamlit Deployment, NLP-derived Luxury Signals."
 )
+
 
 
 
