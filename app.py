@@ -26,14 +26,30 @@ st.markdown("---")
 col1, col2 = st.columns([1, 1])
 
 with col1:
-    st.subheader("📍 Location Intelligence")
-    map_data = pd.DataFrame({'lat': [lat], 'lon': [lon]})
-    st.map(map_data)
-    
-    # --- CHOROPLETH SECTION ---
-    # When you are ready with the 'nyc_map_merged' data, we will put it here.
-    # For the Tata application, the 'st.map' above is enough to prove 'Geospatial' skills!
-    st.info("🗺️ *Interactive Neighborhood Heatmap integration in progress...*")
+    st.subheader("🗺️ Price Density Map")
+
+layer = pdk.Layer(
+    "HeatmapLayer",
+    data=nyc_df,   # <-- your dataframe
+    get_position=["longitude", "latitude"],
+    get_weight="price",
+    radiusPixels=60,
+)
+
+view_state = pdk.ViewState(
+    latitude=40.7128,
+    longitude=-74.0060,
+    zoom=10,
+    pitch=0,
+)
+
+deck = pdk.Deck(
+    layers=[layer],
+    initial_view_state=view_state,
+    map_style="light",
+)
+
+st.pydeck_chart(deck)
 
 with col2:
     st.subheader("💰 Valuation Engine")
@@ -55,4 +71,5 @@ with col2:
 
 st.markdown("---")
 st.info("📊 **Note to Recruiters:** This project integrates HuggingFace Transformers (DistilBERT) for NLP sentiment analysis and Scikit-Learn for spatial regression.")
+
 
