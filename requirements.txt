@@ -1,6 +1,10 @@
 streamlit
 pandas
-scikit-learn
+numpy
 joblib
-streamlit-folium
+scikit-learn
 pydeck
+geopandas
+shapely
+fiona
+
