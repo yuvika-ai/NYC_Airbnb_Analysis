@@ -32,15 +32,14 @@ with col1:
     map_data = pd.DataFrame({'lat': [lat], 'lon': [lon]})
     st.map(map_data)
     
-    with col1:
+    st.markdown("---") # Adds a nice divider
     st.subheader("📍 Neighborhood Market Heatmap")
     
-    # Load GeoJSON (This is the official NYC shapefile)
+    # Load GeoJSON
     geojson_url = "https://raw.githubusercontent.com/fedhere/PUI2015_ak5329/master/HW5_ak5329/nyc-zip-codes.geojson"
     
     # Create the map
     m = folium.Map(location=[40.7128, -74.0060], zoom_start=10, tiles="CartoDB positron")
-
     # Add the Choropleth layer
     # Note: For the 'data' part, we use a placeholder or your existing dataframe
     folium.Choropleth(
@@ -76,3 +75,4 @@ with col2:
 
 st.markdown("---")
 st.info("📊 **Note to Recruiters:** This project integrates HuggingFace Transformers (DistilBERT) for NLP sentiment analysis and Scikit-Learn for spatial regression.")
+
