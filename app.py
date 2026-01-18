@@ -1,75 +1,164 @@
-import pydeck as pdk
 import streamlit as st
+import pydeck as pdk
 import joblib
 import pandas as pd
 import numpy as np
+import geopandas as gpd
 
-# 1. Load the model
-# IMPORTANT: Make sure these files are in the SAME folder on GitHub
-model = joblib.load('nyc_model streamlit.pkl')
-model_columns = joblib.load('nyc file streamlit.pkl')
+# -----------------------------
+# Page Config (FIRST)
+# -----------------------------
+st.set_page_config(
+    page_title="NYC Real Estate AI",
+    layout="wide",
+    page_icon="🏙️"
+)
 
-# 2. Page Config
-st.set_page_config(page_title="NYC Real Estate AI", layout="wide", page_icon="🏙️")
+# -----------------------------
+# Styling (dark, luxe, poppy)
+# -----------------------------
+st.markdown("""
+<style>
+.stApp {
+    background: linear-gradient(180deg, #0b0014, #12001f);
+    color: #ffd6f5;
+}
+h1, h2, h3 {
+    color: #ff9fe5;
+}
+[data-testid="stMetricValue"] {
+    color: #9efff7;
+}
+</style>
+""", unsafe_allow_html=True)
 
-# 3. Sidebar for Inputs
+# -----------------------------
+# Load model & columns
+# -----------------------------
+@st.cache_resource
+def load_model():
+    model = joblib.load("nyc_model streamlit.pkl")
+    columns = joblib.load("nyc file streamlit.pkl")
+    return model, columns
+
+model, model_columns = load_model()
+
+# -----------------------------
+# Load data for maps
+# -----------------------------
+@st.cache_data
+def load_heatmap_data():
+    return pd.read_csv("neighbourhood_prices.csv")
+
+@st.cache_data
+def load_geojson():
+    return gpd.read_file("nyc_neighborhoods.geojson")
+
+nyc_df = load_heatmap_data()
+nyc_geo = load_geojson()  # loaded for future choropleth use
+
+# -----------------------------
+# Sidebar Inputs
+# -----------------------------
 st.sidebar.header("🏢 Listing Configuration")
-lat = st.sidebar.number_input("Latitude", value=40.7128, format="%.4f")
-lon = st.sidebar.number_input("Longitude", value=-74.0060, format="%.4f")
-lux = st.sidebar.slider("AI Luxury Score (NLP)", 0.0, 1.0, 0.85)
-nights = st.sidebar.number_input("Min. Nights", value=1)
 
-# 4. Main Interface
+lat = st.sidebar.number_input(
+    "Latitude",
+    value=40.7128,
+    format="%.4f"
+)
+
+lon = st.sidebar.number_input(
+    "Longitude",
+    value=-74.0060,
+    format="%.4f"
+)
+
+lux = st.sidebar.slider(
+    "AI Luxury Score (NLP)",
+    0.0, 1.0, 0.85
+)
+
+nights = st.sidebar.number_input(
+    "Min. Nights",
+    value=1,
+    min_value=1
+)
+
+# -----------------------------
+# Main Title
+# -----------------------------
 st.title("🏙️ NYC Luxury Rental Price Intelligence")
 st.markdown("---")
 
 col1, col2 = st.columns([1, 1])
 
+# -----------------------------
+# MAP COLUMN
+# -----------------------------
 with col1:
-    st.subheader("🗺️ Price Density Map")
+    st.subheader("🗺️ NYC Price Density (Heatmap)")
 
-layer = pdk.Layer(
-    "HeatmapLayer",
-    data=nyc_df,   # <-- your dataframe
-    get_position=["longitude", "latitude"],
-    get_weight="price",
-    radiusPixels=60,
-)
+    heatmap_layer = pdk.Layer(
+        "HeatmapLayer",
+        data=nyc_df,
+        get_position=["longitude", "latitude"],
+        get_weight="price",
+        radiusPixels=60,
+    )
 
-view_state = pdk.ViewState(
-    latitude=40.7128,
-    longitude=-74.0060,
-    zoom=10,
-    pitch=0,
-)
+    view_state = pdk.ViewState(
+        latitude=40.7128,
+        longitude=-74.0060,
+        zoom=10,
+        pitch=0,
+    )
 
-deck = pdk.Deck(
-    layers=[layer],
-    initial_view_state=view_state,
-    map_style="light",
-)
+    deck = pdk.Deck(
+        layers=[heatmap_layer],
+        initial_view_state=view_state,
+        map_style="mapbox://styles/mapbox/dark-v11",
+    )
 
-st.pydeck_chart(deck)
+    st.pydeck_chart(deck, use_container_width=True)
 
+    st.caption("Density reflects average nightly prices across NYC listings.")
+
+# -----------------------------
+# PREDICTION COLUMN
+# -----------------------------
 with col2:
     st.subheader("💰 Valuation Engine")
-    st.write("This engine uses a Random Forest Regressor trained on 40,000+ NYC data points.")
-    
+    st.write(
+        "Random Forest Regressor trained on 40,000+ NYC listings, "
+        "augmented with semantic luxury scoring."
+    )
+
     if st.button("RUN AI VALUATION 🚀", use_container_width=True):
         input_df = pd.DataFrame(0, index=[0], columns=model_columns)
-        input_df['latitude'] = lat
-        input_df['longitude'] = lon
-        input_df['minimum_nights'] = nights
-        if 'luxury_score' in input_df.columns:
-            input_df['luxury_score'] = lux
-            
+
+        input_df["latitude"] = lat
+        input_df["longitude"] = lon
+        input_df["minimum_nights"] = nights
+
+        if "luxury_score" in input_df.columns:
+            input_df["luxury_score"] = lux
+
         prediction = model.predict(input_df)
-        
-        st.metric(label="Estimated Nightly Rate", value=f"${prediction[0]:.2f}")
-        st.success("✅ Prediction generated using semantic luxury features.")
-        st.snow() # Falling diamonds effect!
 
+        st.metric(
+            label="Estimated Nightly Rate",
+            value=f"${prediction[0]:.2f}"
+        )
+
+        st.success("✅ AI valuation complete.")
+        st.snow()
+
+# -----------------------------
+# Footer
+# -----------------------------
 st.markdown("---")
-st.info("📊 **Note to Recruiters:** This project integrates HuggingFace Transformers (DistilBERT) for NLP sentiment analysis and Scikit-Learn for spatial regression.")
-
-
+st.info(
+    "📊 **Technical Stack:** Scikit-learn (Random Forest), PyDeck Geospatial "
+    "Visualization, Streamlit Deployment, NLP-derived Luxury Scoring."
+)
