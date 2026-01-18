@@ -4,7 +4,6 @@ numpy
 joblib
 scikit-learn
 pydeck
-geopandas
-shapely
-fiona
+
+
 
