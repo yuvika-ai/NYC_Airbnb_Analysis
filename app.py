@@ -80,15 +80,16 @@ with col1:
         data=nyc_df,
         get_position=["longitude", "latitude"],
         get_weight="price",
-        radiusPixels=60,
-        intensity=5,      # Increases the brightness of the "hot" spots
-        threshold=0.1,    # Shows more of the lower-priced areas
-        colorRange=[      # Custom Soft Pink to Purple gradient (RdPu style)
-            [254, 235, 226],
-            [251, 180, 185],
-            [247, 104, 161],
-            [197, 27, 138],
-            [122, 1, 119]
+        radiusPixels=50,
+        intensity=10,     # High intensity to make it pop on dark mode
+        threshold=0.05,   # Lower threshold to show more neighborhood data
+        aggregation=pdk.types.String("MEAN"),
+        colorRange=[
+            [254, 235, 226, 100], # Soft Pink (Lower Opacity)
+            [251, 180, 185, 150],
+            [247, 104, 161, 200],
+            [197, 27, 138, 220],
+            [122, 1, 119, 255]    # Deep Purple (Full Opacity)
         ]
     )
 
@@ -143,3 +144,4 @@ st.info(
     "📊 **Stack:** Scikit-learn, PyDeck Geospatial Visualization, "
     "Streamlit Deployment, NLP-derived Luxury Signals."
 )
+
