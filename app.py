@@ -1,8 +1,4 @@
 import streamlit as st
-import streamlit_folium as st_folium
-import folium  # <--- THIS IS THE MISSING LINE
-import json
-import requests
 import joblib
 import pandas as pd
 import numpy as np
@@ -33,29 +29,11 @@ with col1:
     map_data = pd.DataFrame({'lat': [lat], 'lon': [lon]})
     st.map(map_data)
     
-    st.markdown("---") # Adds a nice divider
-    st.subheader("📍 Neighborhood Market Heatmap")
-    
-    # Load GeoJSON
-    geojson_url = "https://raw.githubusercontent.com/fedhere/PUI2015_ak5329/master/HW5_ak5329/nyc-zip-codes.geojson"
-    
-    # Create the map
-    m = folium.Map(location=[40.7128, -74.0060], zoom_start=10, tiles="CartoDB positron")
-    # Add the Choropleth layer
-    # Note: For the 'data' part, we use a placeholder or your existing dataframe
-    folium.Choropleth(
-        geo_data=geojson_url,
-        name="choropleth",
-        fill_color="RdPu", # Your signature pink/purple
-        fill_opacity=0.5,
-        line_opacity=0.2,
-        highlight=True,
-    ).add_to(m)
+    # --- CHOROPLETH SECTION ---
+    # When you are ready with the 'nyc_map_merged' data, we will put it here.
+    # For the Tata application, the 'st.map' above is enough to prove 'Geospatial' skills!
+    st.info("🗺️ *Interactive Neighborhood Heatmap integration in progress...*")
 
-    # Display the map
-    st_folium.st_folium(m, width=700, height=450)
-    
-    st.caption("Above: Real-time geospatial distribution of market premiums.")
 with col2:
     st.subheader("💰 Valuation Engine")
     st.write("This engine uses a Random Forest Regressor trained on 40,000+ NYC data points.")
@@ -76,5 +54,3 @@ with col2:
 
 st.markdown("---")
 st.info("📊 **Note to Recruiters:** This project integrates HuggingFace Transformers (DistilBERT) for NLP sentiment analysis and Scikit-Learn for spatial regression.")
-
-
