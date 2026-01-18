@@ -1,5 +1,7 @@
 streamlit
 pandas
-scikit-learn
 joblib
+numpy
+folium
 streamlit-folium
+requests
