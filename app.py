@@ -106,7 +106,8 @@ with col1:
     r = pdk.Deck(
         layers=[heatmap_layer],
         initial_view_state=view_state,
-        map_style="mapbox://styles/mapbox/navigation-night-v1",
+        # This style does NOT require a Mapbox token to show the streets
+        map_style="light", 
     )
     
     st.pydeck_chart(r)
@@ -132,3 +133,4 @@ with col2:
 
 st.markdown("---")
 st.info("📊 **Stack:** Scikit-learn, PyDeck Geospatial, Streamlit Cloud, NLP Signals.")
+
