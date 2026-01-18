@@ -1,7 +1,8 @@
+import streamlit as st
 import streamlit_folium as st_folium
+import folium  # <--- THIS IS THE MISSING LINE
 import json
 import requests
-import streamlit as st
 import joblib
 import pandas as pd
 import numpy as np
@@ -75,4 +76,5 @@ with col2:
 
 st.markdown("---")
 st.info("📊 **Note to Recruiters:** This project integrates HuggingFace Transformers (DistilBERT) for NLP sentiment analysis and Scikit-Learn for spatial regression.")
+
 
