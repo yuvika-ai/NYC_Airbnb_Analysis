@@ -102,7 +102,9 @@ with col1:
     deck = pdk.Deck(
         layers=[heatmap_layer],
         initial_view_state=view_state,
-        map_style="mapbox://styles/mapbox/dark-v11",
+        # This style has better contrast for pink/purple gradients
+        map_style="mapbox://styles/mapbox/navigation-night-v1", 
+        tooltip={"text": "Concentration of High-Value Listings"}
     )
 
     st.pydeck_chart(deck, use_container_width=True)
@@ -144,4 +146,5 @@ st.info(
     "📊 **Stack:** Scikit-learn, PyDeck Geospatial Visualization, "
     "Streamlit Deployment, NLP-derived Luxury Signals."
 )
+
 
