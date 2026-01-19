@@ -38,7 +38,7 @@ The "Review" Paradox: High review counts correlate with lower price volatility, 
 **Bridging Commerce & Machine Learning for Urban Property Investment**
 
 ## 🔗 Live Application
-[🚀 Click Here to Launch the Live AI Dashboard](https://nycairbnbanalysis-wrp4r2kdvucuex7jvmuu5d.streamlit.app/)
+https://nycairbnbanalysis-kultxkxairdem7rxsde22f.streamlit.app/
 
 ## 📈 Project Overview
 How can a new Airbnb host in NYC price their property to maximize occupancy? This project moves beyond simple averages, using **Transformer-based NLP** and **Random Forest Regression** to predict nightly rates based on 48,000+ listings.
